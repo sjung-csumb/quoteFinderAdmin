@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>Adding a new Quote</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h1> Adding New Quote</h1>
+    <!-- <% if (isShort) { %> -->
+    <p style="background-color: lightcoral; font-weight: bold; display: none !important" id="qq">
+        ERROR: Quote must be at least 5 characters.
+    </p>
+    <!-- <% } %> -->
+    <form action="/addQuote" method="POST">
+        <fieldset>
+            <legend>Author: </legend>
+            <select name="authorId" id="authorList">
+                <% for(let a of aList){ %>
+                    <option value="<%= a.authorId %>"> <%= a.firstName %> <%= a.lastName %> </option> 
+                <% } %>
+            </select>
+        </fieldset> <br>
+
+        <fieldset>
+            <legend>Category: </legend>
+            <select name="category" id="authorList">
+                <% for(let c of cList){ %>
+                    <option value="<%= c.category %>"> <%= c.category %> </option> 
+                <% } %>
+            </select>
+        </fieldset> <br>
+
+        Quote:  <textarea name="quote" id="quoteText"></textarea>
+        <button id="aa"> Add Quote </button>
+
+
+        <%- include("partials/navbar.ejs") %>
+</body>
+<script>
+
+    let q = document.querySelector("#quoteText");
+    let m = document.querySelector("#qq");
+    //m.style.display = 'none'
+    
+    document.querySelector('#aa').addEventListener('click', (ev) => {
+        // if(q.textContent.length < 5 && q.textContent.length != 0 ){
+            if(q.textContent.length < 5 ) {
+        m.style.display = 'block';
+                ev.preventDefault()
+        } else {
+            
+        }
+    })
+</script>
+</html>
