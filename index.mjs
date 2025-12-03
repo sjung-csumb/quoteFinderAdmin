@@ -104,6 +104,27 @@ app.post("/addQuote", async(req, res) =>{
     res.render('addQuote.ejs',{aList, cList, isShort: quote.length != '' &&  quote.length < 5 });
 });
 
+app.get('/authors', async (req,res) => {
+    let sql = `SELECT authorId, firstName, lastName
+                FROM authors
+                ORDER BY lastName`;
+
+    const [authors] = await pool.query(sql);         
+    res.render('author.ejs',{authors})
+});
+
+app.get('/updateAuthor', async (req,res) => {
+    let authorId = req.query.id;
+
+    let sql = `SELECT *
+                FROM authors
+                WHERE authorId = ?`;
+//w12 24:43
+
+    const [authorInfo] = await pool.query(sql,[authorId]);         
+    res.render('author.ejs',{authors})
+});
+
 app.get("/dbTest", async(req, res) => {
    try {
         const [rows] = await pool.query("SELECT CURDATE()");
